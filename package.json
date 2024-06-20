@@ -1,7 +1,7 @@
 {
-  "name": "ez-dashboard",
-  "version": "1.0.18",
-  "description": "EzDashboard Library for React Developers",
+  "name": "@digipodium/ezdashboard",
+  "version": "1.0.3",
+  "description": "Digipodium's React Library for building dashboards",
   "scripts": {
     "rollup": "rollup -c",
     "build": "rollup -c --bundleConfigAsCjs"
@@ -10,10 +10,12 @@
     "react",
     "component",
     "frontend",
-    "Digipodium",
-    "Dashboard"
+    "digipodium",
+    "dashboard",
+    "easy",
+    "digipod"
   ],
-  "author": "Vaibhav & Nishant",
+  "author": "Digipodium Team",
   "license": "ISC",
   "devDependencies": {
     "@nivo/bar": "^0.85.1",
