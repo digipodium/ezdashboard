@@ -5,9 +5,10 @@ import { AppDashboardInterface } from "../types/ContextTypes";
 const DashboardContext = createContext<AppDashboardInterface>({
     user: null,
     setUser: () => { },
+
 });
 
-export const DashboardProvider = ({children}: { children: React.ReactNode }) => {
+export const DashboardProvider = ({ children }: { children: React.ReactNode }) => {
 
     const [currentUser, setCurrentUser] = useState(JSON.parse(sessionStorage.getItem('currentUser') ?? ''));
     const [loggedIn, setLoggedIn] = useState(currentUser !== '');
@@ -24,7 +25,7 @@ export const DashboardProvider = ({children}: { children: React.ReactNode }) => 
     }
 
     return (
-        <DashboardContext.Provider value={{}}>
+        <DashboardContext.Provider value={{ user, setUser }}>
             {children}
         </DashboardContext.Provider>
     );
