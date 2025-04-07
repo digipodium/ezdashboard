@@ -7,7 +7,7 @@ interface StatCardProps {
     value: number;
     label?: string;
     description?: string;
-    color?: 'primary' | 'secondary' | 'success' | undefined;
+    color?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | undefined;
 }
 
 const StatCard: React.FC<StatCardProps> = ({ value, label, description, color = 'primary' }) => {

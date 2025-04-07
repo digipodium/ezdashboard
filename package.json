@@ -1,6 +1,6 @@
 {
   "name": "@digipodium/ezdashboard",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Digipodium's React Library for building dashboards",
   "scripts": {
     "rollup": "rollup -c",
