@@ -9,6 +9,7 @@ export { default as Avatar } from "./Avatar";
 export { default as Radio } from "./Radio";
 export { default as Checkbox } from "./CheckBox";
 export { default as Stepper } from './Stepper';
+export { default as ProgressBar } from './ProgressBar';
 export { default as ScatterChart } from './ScatterPlot';
 export { default as LineChart } from './LineChart';
 export { default as BarChart } from './BarChart';
