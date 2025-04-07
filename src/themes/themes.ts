@@ -2,31 +2,37 @@ const tailwindThemeClasses = {
     colors: {
         primary: 'bg-cyan-600 text-white',
         secondary: 'bg-purple-600 text-white',
-        success: 'bg-green-600 text-white'
+        success: 'bg-green-600 text-white',
+        warning: 'bg-yellow-600 text-white',
+        danger: 'bg-red-600 text-white',
+        info: 'bg-blue-600 text-white',
+        dark: 'bg-gray-800 text-white',
+        light: 'bg-gray-200 text-black',
+        white: 'bg-white text-black'
     },
 
     radius: {
         none: 'rounded-none',
-        xs:'rounded',
-        sm:'rounded',
-        md:'rounded-md',
-        lg:'rounded-lg',
-        xl:'rounded-full',
-    }, 
-    padding:{
-        xl:  'px-10 py-5',
+        xs: 'rounded',
+        sm: 'rounded',
+        md: 'rounded-md',
+        lg: 'rounded-lg',
+        xl: 'rounded-full',
+    },
+    padding: {
+        xl: 'px-10 py-5',
         lg: 'px-5 py-3',
-        md:'px-5 py-3',
-        sm:'px-3 py-2',
-        xs:'px-2 py-1',
-    }, 
+        md: 'px-5 py-3',
+        sm: 'px-3 py-2',
+        xs: 'px-2 py-1',
+    },
 
-    sizes:{
-        xs:'size-2',
-        sm:'size-2.5',
-        md:'size-3',
-        lg:'size-4',
-        xl:'size-5',
+    sizes: {
+        xs: 'size-2',
+        sm: 'size-2.5',
+        md: 'size-3',
+        lg: 'size-4',
+        xl: 'size-5',
 
     },
     accentcolor: {
@@ -57,13 +63,13 @@ const tailwindThemeClasses = {
 const cssColors = {
     colors: {
         primary: '#1E3A8A',
-         light: '#E5E7EB',
-         dark: '#4B5563',
-         info : '#3B82F6',
-         danger: '#B91C1C',
-         warning: '#F59E0B',
-         success: '#047857',
-         secondary: '#F59E0B',
+        light: '#E5E7EB',
+        dark: '#4B5563',
+        info: '#3B82F6',
+        danger: '#B91C1C',
+        warning: '#F59E0B',
+        success: '#047857',
+        secondary: '#F59E0B',
     }
 }
 const alignmentClasses = {
@@ -73,4 +79,4 @@ const alignmentClasses = {
 
 }
 
-export {tailwindThemeClasses, alignmentClasses,cssColors};
+export { tailwindThemeClasses, alignmentClasses, cssColors };
