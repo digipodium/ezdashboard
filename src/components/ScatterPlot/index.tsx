@@ -1,15 +1,17 @@
 import { ResponsiveScatterPlot } from '@nivo/scatterplot'
 import React from 'react'
 
-interface Data {
-    id: string;
-    data: {
-        x: number;
-        y: number;
-    }[];
+interface ScatterChartProps {
+  data: {
+    id: string
+    data: Array<{
+      x: number
+      y: number
+    }>
+  }[]
 }
 
-const ScatterChart = ({ data }: any) => (
+const ScatterChart: React.FC<ScatterChartProps> = ({ data }) => (
     <ResponsiveScatterPlot
         data={data}
         margin={{ top: 60, right: 140, bottom: 70, left: 90 }}
@@ -65,6 +67,5 @@ const ScatterChart = ({ data }: any) => (
         ]}
     />
 )
-
 
 export default ScatterChart;
