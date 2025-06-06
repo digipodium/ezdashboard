@@ -1,4 +1,4 @@
-interface ThemeContextType {
+export interface ThemeContextType {
     theme: Object;
     toggleTheme: (theme: string) => void;
 }

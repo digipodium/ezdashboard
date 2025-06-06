@@ -1,71 +1,68 @@
-import { ResponsiveScatterPlot } from '@nivo/scatterplot'
-import React from 'react'
+// src/components/ScatterPlot/index.tsx
+import { ResponsiveScatterPlot } from '@nivo/scatterplot';
+import React from 'react';
 
-interface ScatterChartProps {
-  data: {
-    id: string
-    data: Array<{
-      x: number
-      y: number
-    }>
-  }[]
+interface Data {
+  id: string;
+  data: { x: number; y: number }[];
 }
 
-const ScatterChart: React.FC<ScatterChartProps> = ({ data }) => (
-    <ResponsiveScatterPlot
+const ScatterPlot: React.FC<{ data?: Data[] }> = ({ data = [] }) => {
+  if (!data.length) return <div key="no-data">No data available.</div>;
+  return (
+    <div style={{ height: 300 }} key="scatter-plot-container">
+      <ResponsiveScatterPlot
         data={data}
-        margin={{ top: 60, right: 140, bottom: 70, left: 90 }}
-        xScale={{ type: 'linear', min: 0, max: 'auto' }}
-        xFormat=">-.2f"
-        yScale={{ type: 'linear', min: 0, max: 'auto' }}
-        yFormat=">-.2f"
-        blendMode="multiply"
-        axisTop={null}
-        axisRight={null}
+        margin={{ top: 40, right: 140, bottom: 70, left: 90 }}
+        xScale={{ type: 'linear', min: 'auto', max: 'auto' }}
+        yScale={{ type: 'linear', min: 'auto', max: 'auto' }}
+        blendMode="normal"
+        nodeSize={12}
+        enableGridX={true}
+        enableGridY={true}
+        colors={{ scheme: 'category10' }}
         axisBottom={{
-            // orient: 'bottom',
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 0,
-            legend: 'weight',
-            legendPosition: 'middle',
-            legendOffset: 46,
-            truncateTickAt: 0
+          tickSize: 5,
+          tickPadding: 5,
+          tickRotation: 0,
+          legend: 'X Axis',
+          legendOffset: 36,
+          legendPosition: 'middle',
         }}
         axisLeft={{
-            // orient: 'left',
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 0,
-            legend: 'size',
-            legendPosition: 'middle',
-            legendOffset: -60,
-            truncateTickAt: 0
+          tickSize: 5,
+          tickPadding: 5,
+          tickRotation: 0,
+          legend: 'Y Axis',
+          legendOffset: -40,
+          legendPosition: 'middle',
         }}
         legends={[
-            {
-                anchor: 'bottom-right',
-                direction: 'column',
-                justify: false,
-                translateX: 130,
-                translateY: 0,
-                itemWidth: 100,
-                itemHeight: 12,
-                itemsSpacing: 5,
-                itemDirection: 'left-to-right',
-                symbolSize: 12,
-                symbolShape: 'circle',
-                effects: [
-                    {
-                        on: 'hover',
-                        style: {
-                            itemOpacity: 1
-                        }
-                    }
-                ]
-            }
+          {
+            anchor: 'bottom-right',
+            direction: 'column',
+            justify: false,
+            translateX: 130,
+            translateY: 0,
+            itemWidth: 100,
+            itemHeight: 12,
+            itemsSpacing: 5,
+            itemDirection: 'left-to-right',
+            symbolSize: 12,
+            symbolShape: 'circle',
+            effects: [
+              {
+                on: 'hover',
+                style: {
+                  itemOpacity: 1,
+                },
+              },
+            ],
+          },
         ]}
-    />
-)
+      />
+    </div>
+  );
+};
 
-export default ScatterChart;
+export default ScatterPlot;

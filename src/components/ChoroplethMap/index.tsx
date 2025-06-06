@@ -1,15 +1,11 @@
-
 import { ResponsiveChoropleth } from '@nivo/geo';
-import React from 'react';
 
-interface Data {
-  data :{
-    id: string;
-    value: number;
-  }[];
-  }
+interface ChoroplethDatum {
+  id: string;
+  value: number;
+}
 
-  const features = [
+const features = [
     {
         type: 'Feature',
         properties: {
@@ -24,12 +20,10 @@ interface Data {
     // more features...
 ];
 
-
-const ChoroplethMap = ({ data}:{data:Data[]}) => (
+const ChoroplethMap = ({ data }: { data: ChoroplethDatum[] }) => (
     <ResponsiveChoropleth
-    features={features}
+        features={features}
         data={data}
-        // features="/* please have a look at the description for usage */"
         margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
         colors="nivo"
         domain={[ 0, 1000000 ]}

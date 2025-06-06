@@ -1,82 +1,137 @@
-import React, { BaseSyntheticEvent } from 'react';
-import { alignmentClasses } from '../../themes/themes';
-import {
-  IconTrash,
-  IconPencil,
-} from '@tabler/icons-react';
+// src/components/Table/index.tsx
+import React, { FC, ReactNode, SyntheticEvent } from 'react';
 import clsx from 'clsx';
 
+interface TableRowData extends Record<string, any> {}
+
 interface TableProps {
-  data: Array<Record<string, string | number | boolean>>;
+  data?: TableRowData[];
+  headings?: string[];
+  uniqueKeyField?: string;
   className?: string;
   alignHeading?: 'left' | 'center' | 'right';
   alignData?: 'left' | 'center' | 'right';
-  primaryAction?: (e: BaseSyntheticEvent, v: string) => void;
-  secondaryAction?: (e: BaseSyntheticEvent, v: string) => void;
-  primaryButtonIcon?: React.ReactNode;
-  secondaryButtonIcon?: React.ReactNode;
+  primaryAction?: (e: SyntheticEvent, uniqueId: string) => void;
+  secondaryAction?: (e: SyntheticEvent, uniqueId: string) => void;
   primaryButtonText?: string;
   secondaryButtonText?: string;
-  key?: string;
+  primaryButtonIcon?: ReactNode;
+  secondaryButtonIcon?: ReactNode;
+  emptyMessage?: string;
+  striped?: boolean;
+  hoverable?: boolean;
+  compact?: boolean;
 }
 
-const Table: React.FC<TableProps> = ({
-  data,
-  className,
-  key = "_id",
-  primaryAction = (e: BaseSyntheticEvent, v: string) => { },
-  secondaryAction = (e: BaseSyntheticEvent, v: string) => { },
-  primaryButtonIcon = <IconTrash size={20} />,
-  secondaryButtonIcon = <IconPencil size={20} />,
-  primaryButtonText = "",
-  secondaryButtonText = "",
-  alignHeading = 'left',
-  alignData = "left" }) => {
+const alignmentClasses = {
+  left: 'text-left',
+  center: 'text-center',
+  right: 'text-right',
+};
 
-  const extractHeadings = (data: { [key: string]: any }[]) => {
-    return Object.keys(data[0]);
+const Table: FC<TableProps> = ({
+  data = [],
+  headings = [],
+  uniqueKeyField = 'id',
+  className,
+  alignHeading = 'left',
+  alignData = 'left',
+  primaryAction,
+  secondaryAction,
+  primaryButtonText = 'Edit',
+  secondaryButtonText = 'Delete',
+  primaryButtonIcon,
+  secondaryButtonIcon,
+  emptyMessage = 'No data available.',
+  striped = true,
+  hoverable = true,
+  compact = false,
+}) => {
+  if (!data.length) {
+    return (
+      <div className={clsx(
+        'flex items-center justify-center p-8 text-gray-500 bg-gray-50 dark:bg-gray-800 rounded-lg',
+        className
+      )}>
+        {emptyMessage}
+      </div>
+    );
   }
 
   return (
-    <div className={clsx('flex flex-col', className)}>
-      <div className="-m-1.5 overflow-x-auto">
-        <div className="p-1.5 min-w-full inline-block align-middle">
-          <div className="border rounded-lg shadow overflow-hidden dark:border-gray-700 dark:shadow-gray-900">
-            <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-              <thead className={`bg-gray-50 dark:bg-gray-800 ${alignmentClasses[alignHeading]}`}>
-                <tr>
-                  {extractHeadings(data).map((heading, index) => (
-                    <th key={index} className="px-6 py-3 text-xs font-medium text-gray-800 dark:text-gray-200 uppercase tracking-wider">{heading}</th>
-                  ))}
-                  <th className="w-5 px-6 py-3 text-xs font-medium text-gray-800 dark:text-gray-200 uppercase tracking-wider text-center">Actions</th>
-                </tr>
-              </thead>
-              <tbody className={`divide-y divide-gray-200 dark:divide-gray-700 ${alignmentClasses[alignData]}`}>
-                {data.map((row: Record<string, string | number | boolean>, index) => (
-                  <tr key={index} className={`bg-white dark:bg-gray-800 ${alignmentClasses[alignData]}`}>
-                    {Object.values(row).map((value, index) => (
-                      <td key={index} className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-200">{value}</td>
-                    ))}
-                    <td className="flex gap-2 px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <button
-                        onClick={(e: BaseSyntheticEvent) => primaryAction(e, String(row[key]))}
-                        className="flex items-center gap-3 bg-red-500 text-white rounded-full py-1.5 px-3 hover:bg-red-700">
-                        {primaryButtonIcon}
-                        {primaryButtonText}
-                      </button>
-                      <button
-                        onClick={(e: BaseSyntheticEvent) => secondaryAction(e, String(row[key]))}
-                        className="flex items-center gap-3 bg-blue-500 text-white rounded-full py-1.5 px-3 hover:bg-blue-700">
-                        {secondaryButtonIcon}
-                        {secondaryButtonText}
-                      </button>
-                    </td>
-                  </tr>
+    <div className={clsx('w-full overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700', className)}>
+      <div className="overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+          <thead className="bg-gray-50 dark:bg-gray-800">
+            <tr>
+              {headings.map((heading, index) => (
+                <th
+                  key={index}
+                  className={clsx(
+                    'px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400',
+                    alignmentClasses[alignHeading],
+                    compact ? 'py-2' : 'py-3'
+                  )}
+                >
+                  {heading}
+                </th>
+              ))}
+              {(primaryAction || secondaryAction) && (
+                <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider text-center dark:text-gray-400">
+                  Actions
+                </th>
+              )}
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-900 dark:divide-gray-700">
+            {data.map((row, rowIndex) => (
+              <tr
+                key={String(row[uniqueKeyField]) || rowIndex}
+                className={clsx(
+                  striped && rowIndex % 2 === 0 && 'bg-gray-50 dark:bg-gray-800/50',
+                  hoverable && 'hover:bg-gray-100 dark:hover:bg-gray-800/70 transition-colors duration-150',
+                  alignmentClasses[alignData]
+                )}
+              >
+                {headings.map((headingKey, colIndex) => (
+                  <td
+                    key={`${rowIndex}-${colIndex}`}
+                    className={clsx(
+                      'px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-200',
+                      compact ? 'py-2' : 'py-4'
+                    )}
+                  >
+                    {row[headingKey]}
+                  </td>
                 ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+                {(primaryAction || secondaryAction) && (
+                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <div className="flex items-center justify-end gap-2">
+                      {primaryAction && (
+                        <button
+                          onClick={(e) => primaryAction(e, String(row[uniqueKeyField]))}
+                          className="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-150"
+                        >
+                          {primaryButtonIcon && <span className="w-4 h-4">{primaryButtonIcon}</span>}
+                          {primaryButtonText}
+                        </button>
+                      )}
+                      {secondaryAction && (
+                        <button
+                          onClick={(e) => secondaryAction(e, String(row[uniqueKeyField]))}
+                          className="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-150"
+                        >
+                          {secondaryButtonIcon && <span className="w-4 h-4">{secondaryButtonIcon}</span>}
+                          {secondaryButtonText}
+                        </button>
+                      )}
+                    </div>
+                  </td>
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

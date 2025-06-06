@@ -12,8 +12,8 @@ const BarChart = ({ data, index, keys }: BarChartProps) => (
         data={data}
         keys={keys}
         indexBy={index}
-        // margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
-        // padding={0.3}
+        margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+        padding={0.3}
         valueScale={{ type: 'linear' }}
         indexScale={{ type: 'band', round: true }}
         colors={{ scheme: 'nivo' }}

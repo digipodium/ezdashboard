@@ -1,39 +1,118 @@
-import React from 'react';
-import { cssColors, tailwindThemeClasses,  } from '../../themes/themes';
+// src/components/ProgressBar/index.tsx
+import React, { FC } from 'react';
 
 interface ProgressBarProps {
-  label: string;
+  label?: string;
   value: number;
-  radius?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'| undefined;
-  color?: 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info' | 'dark' | 'light'| undefined;
-  size?:  'xs' | 'sm' | 'md' | 'lg' | 'xl'| undefined;
+  radius?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  color?: 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info' | 'dark' | 'light';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  showValue?: boolean;
+  animated?: boolean;
 }
 
-const ProgressBar: React.FC<ProgressBarProps> = ({ label="Unknown", value=0, radius='md', color='primary', size='md' }) => {
-  const tooltipText =`${label}: ${value}%`;
-  const progressValue = Math.min(value, 100);
+const sizeMap = {
+  xs: 'h-1',
+  sm: 'h-1.5',
+  md: 'h-2',
+  lg: 'h-3',
+  xl: 'h-4',
+};
+
+const radiusMap = {
+  none: 'rounded-none',
+  xs: 'rounded',
+  sm: 'rounded-md',
+  md: 'rounded-lg',
+  lg: 'rounded-xl',
+  xl: 'rounded-2xl',
+};
+
+const colorMap = {
+  primary: {
+    bg: 'bg-blue-600',
+    text: 'text-blue-600',
+    label: 'text-blue-700',
+    track: 'bg-blue-100 dark:bg-blue-900/30',
+  },
+  secondary: {
+    bg: 'bg-gray-600',
+    text: 'text-gray-600',
+    label: 'text-gray-700',
+    track: 'bg-gray-100 dark:bg-gray-900/30',
+  },
+  success: {
+    bg: 'bg-green-600',
+    text: 'text-green-600',
+    label: 'text-green-700',
+    track: 'bg-green-100 dark:bg-green-900/30',
+  },
+  warning: {
+    bg: 'bg-yellow-500',
+    text: 'text-yellow-500',
+    label: 'text-yellow-600',
+    track: 'bg-yellow-100 dark:bg-yellow-900/30',
+  },
+  danger: {
+    bg: 'bg-red-600',
+    text: 'text-red-600',
+    label: 'text-red-700',
+    track: 'bg-red-100 dark:bg-red-900/30',
+  },
+  info: {
+    bg: 'bg-sky-500',
+    text: 'text-sky-500',
+    label: 'text-sky-600',
+    track: 'bg-sky-100 dark:bg-sky-900/30',
+  },
+  dark: {
+    bg: 'bg-gray-800',
+    text: 'text-gray-800',
+    label: 'text-gray-900',
+    track: 'bg-gray-200 dark:bg-gray-800/30',
+  },
+  light: {
+    bg: 'bg-gray-200',
+    text: 'text-gray-600',
+    label: 'text-gray-700',
+    track: 'bg-gray-100 dark:bg-gray-900/30',
+  },
+};
+
+const ProgressBar: FC<ProgressBarProps> = ({
+  label = "Progress",
+  value = 0,
+  radius = 'md',
+  color = 'primary',
+  size = 'md',
+  showValue = true,
+  animated = true,
+}) => {
+  const progressValue = Math.min(Math.max(value, 0), 100);
+  const styles = colorMap[color];
 
   return (
-    <div className="relative pt-1">
-      <div className="flex mb-2 items-center justify-between">
-        <div style={{backgroundColor:cssColors.colors[color]}} className={` ${tailwindThemeClasses.radius[radius ]}`} >
-          <span className ="text-xs font-semibold inline-block py-1 px-2 uppercase text-white dark:text-gray-800 ">
-            {tooltipText}
-          </span>
-        </div>
-        <div style={{ color:cssColors.colors[color]}} className="text-right">
-          <span className="text-xs font-semibold inline-block">
+    <div className="w-full">
+      <div className="flex items-center justify-between mb-2">
+        <span className={`text-sm font-medium ${styles.label} dark:text-gray-200`}>
+          {label}
+        </span>
+        {showValue && (
+          <span className={`text-sm font-medium ${styles.text} dark:text-gray-200`}>
             {progressValue}%
           </span>
-        </div>
+        )}
       </div>
-      <div style={{ width: `${progressValue}%`, backgroundColor: cssColors.colors[color] }} className={`overflow-hidden h-2 mb-4 text-xs flex dark:bg-blue-500 ${tailwindThemeClasses.radius[radius]}  ${tailwindThemeClasses.sizes[size]}`}>
-        <div className={`shadow-none w-full flex flex-col text-center whitespace-nowrap text-white justify-center `}></div>
+      <div className={`relative w-full ${sizeMap[size]} ${radiusMap[radius]} ${styles.track} overflow-hidden`}>
+        <div
+          className={`absolute top-0 left-0 h-full ${styles.bg} ${radiusMap[radius]} ${
+            animated ? 'transition-all duration-500 ease-out' : ''
+          }`}
+          style={{ width: `${progressValue}%` }}
+        />
       </div>
     </div>
   );
 };
-
-
 
 export default ProgressBar;

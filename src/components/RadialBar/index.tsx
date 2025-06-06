@@ -1,15 +1,18 @@
-// install (please try to align the version of installed @nivo packages)
-// yarn add @nivo/radial-bar
+// src/components/RadialBar/index.tsx (This file is already correct)
 import { ResponsiveRadialBar } from '@nivo/radial-bar'
- import React from 'react'
+import React from 'react'
+
 interface Data {
     id: string;
+    // Nivo RadialBar data structure is an array of objects,
+    // where each object represents a bar/slice.
+    // Each object has an 'id' and a 'data' array.
+    // The 'data' array contains objects with 'x' (category) and 'y' (value).
     data: {
-        x: string;
-        y: number;
+        x: string; // The category name for the bar (e.g., "Jan", "Product A")
+        y: number; // The value for the bar
     }[];
 }
-
 
 const RadialBar = ({data}: { data: Data[] }) => (
     <ResponsiveRadialBar
@@ -47,4 +50,4 @@ const RadialBar = ({data}: { data: Data[] }) => (
     />
 )
 
-export default  RadialBar;
+export default RadialBar;
