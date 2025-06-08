@@ -1,11 +1,6 @@
 # Digipodium EzDashboard
 
----
-
-[![Website](https://img.shields.io/badge/Website-Docs-green)](https://ezdashboard.digipodium.com/docs/gettingStarted)
-[![NPM](https://img.shields.io/npm/v/@digipodium/ezdashboard)](https://www.npmjs.com/package/@digipodium/ezdashboard)
-[![GitHub](https://img.shields.io/badge/GitHub-Repo-blue)](https://github.com/digipodium/ezdashboard)
-[![Instagram](https://img.shields.io/badge/Instagram-Follow-lightgray)](https://www.instagram.com/digipodium_official/?hl=en)
+[![Website](https://img.shields.io/badge/Website-Docs-green)](https://ezdashboard.digipodium.com/docs/gettingStarted) &nbsp; &nbsp; &nbsp; [![NPM](https://img.shields.io/npm/v/@digipodium/ezdashboard)](https://www.npmjs.com/package/@digipodium/ezdashboard) &nbsp; &nbsp; &nbsp; [![GitHub](https://img.shields.io/badge/GitHub-Repo-blue)](https://github.com/digipodium/ezdashboard) &nbsp; &nbsp; &nbsp; [![Instagram](https://img.shields.io/badge/Instagram-Follow-lightgray)](https://www.instagram.com/digipodium_official/?hl=en)
 
 ---
 
@@ -13,6 +8,7 @@
 
 **EzDashboard** is a powerful **React library** crafted to streamline the creation of professional dashboards. It helps you effortlessly build visually appealing and data-driven interfaces for informed decision-making. By leveraging pre-built components and a flexible design system, EzDashboard empowers developers of all skill levels to rapidly prototype and build exceptional dashboards.
 
+![Dashboard](https://res.cloudinary.com/daxjco9eg/image/upload/v1749380888/dashboard_iw5dpu.png)
 ---
 
 ## Key Benefits
@@ -33,6 +29,9 @@ To install EzDashboard, run the following command in your terminal:
 
 ```bash
 npm i @digipodium/ezdashboard
+```
+
+---
 
 ## Documentation
 
@@ -40,7 +39,7 @@ You can find the comprehensive documentation for `@digipodium/ezdashboard` on ou
 
 Check out the [Getting Started](https://ezdashboard.digipodium.com/docs/gettingStarted) page for a quick overview.
 
-The documentation is organized into several sections: <--- Phrasing improved
+The documentation is organized into several sections:
 
 * [Getting Started](https://ezdashboard.digipodium.com/docs/gettingStarted)
 * [API Reference](https://ezdashboard.digipodium.com/docs/api-reference)
@@ -50,11 +49,14 @@ The documentation is organized into several sections: <--- Phrasing improved
 * [License & Legal](https://ezdashboard.digipodium.com/docs/License-Legal)
 * [Performance Optimization](https://ezdashboard.digipodium.com/docs/performance-optimization)
 
+---
+
 ## Examples
 
 We have several examples available on our [website](https://ezdashboard.digipodium.com/docs/example/alert), including the **Alert** component. Here is a basic example to help you get started:
 
-import { Alert } from '@digipodium/ezdashboard'; // Corrected import path
+```bash
+import { Alert } from '@digipodium/ezdashboard';
 
 const Dashboard = () => {
   return (
@@ -63,8 +65,12 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+```
 
+#### Output Preview:
+![output](https://ezdashboard.digipodium.com/image/alert2.png)
 
+---
 
 ## Components-List
 
@@ -86,6 +92,66 @@ export default Dashboard;
 * [HeatMap](https://ezdashboard.digipodium.com/docs/component/heatmap)
 * [PieChart](https://ezdashboard.digipodium.com/docs/component/piechart)
 
+---
+
 ## License
 
 **EzDashboard** is licensed under the terms outlined in the [License & Legal section of our documentation](https://ezdashboard.digipodium.com/docs/License-Legal).
+
+---
+
+## Few More Examples
+
+We have several examples available on our [website](https://ezdashboard.digipodium.com/docs/example/alert), including the **PieChart** component. Here is a basic example to help you get started:
+
+```bash
+import { PieChart } from '@digipodium/ezdashboard';
+
+const Dashboard = () => {
+  const actualPieData = [
+    {
+      id: "JavaScript",
+      label: "JavaScript",
+      value: 350,
+      color: "hsl(20, 70%, 50%)"
+    },
+    {
+      id: "Python",
+      label: "Python",
+      value: 280,
+      color: "hsl(100, 70%, 50%)"
+    },
+    {
+      id: "Java",
+      label: "Java",
+      value: 190,
+      color: "hsl(200, 70%, 50%)"
+    },
+    {
+      id: "C#",
+      label: "C#",
+      value: 120,
+      color: "hsl(300, 70%, 50%)"
+    },
+    {
+      id: "Go",
+      label: "Go",
+      value: 60,
+      color: "hsl(40, 70%, 50%)"
+    }
+  ];
+
+  return (
+    <div>
+      <div className="mb-5" style={{ height: '400px', width: '100%' }}>
+        <PieChart data={actualPieData} />
+      </div>
+    </div>
+  );
+};
+
+export default Dashboard;
+```
+
+#### Output Preview:
+![output](http://localhost:3000/imageNew/newPieChart.png)
